@@ -1,4 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+}
+
+.grid {
+  align-items: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  max-height: 600px;
+  max-width: 600px;
+}
+
+.grid div {
+  /* border: 1px solid; */
+  flex-grow: 1;
+  height: 10%;
+  width: 10%;
+}
+
+.grid div.frog {
+  background-color: green;
+  background-size: 300px;
+}
+
+.grid div.splat {
   background-color: red;
-  color: white;
+  background-size: 300px;
+}
+
+.grid div.lily {
+  background-color: lightgreen;
+  background-size: 300px;
+}
+
+.grid div.car1 {
+  background-color: black;
+  background-size: 300px;
+}
+
+.grid div.car2 {
+  background-color: darkgray;
+  background-size: 300px;
 }
