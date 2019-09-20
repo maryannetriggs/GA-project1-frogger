@@ -9,12 +9,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const cells = []
 
-  // WHAT DOES THIS DO?? - something with the below logic for grid creation
+  // Logic to create grid
   function handleClick(e) {
     e.target.classList.add('frog')
   }
 
-  // Logic to create grid
   for (let i = 0; i < width ** 2; i++) {
     const cell = document.createElement('div')
     cell.addEventListener('dblclick', handleClick)
@@ -24,10 +23,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Variables for game pieces
   let frogIndex = cells.length - 1
-  console.log(cells.length)
   const lilyIndex = 0
-  let car1Index = 70
-  let car2Index = 50
+  const car1StartIndex = 0.7 * cells.length
+  let car1Index = car1StartIndex
+  const car2StartIndex = (0.6 * cells.length) - 1
+  let car2Index = car2StartIndex
 
   // Logic to create frog, lilypad and car divs
   cells[frogIndex].classList.add('frog')
@@ -55,43 +55,49 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     cells[frogIndex].classList.add('frog')
+
   })
 
   // Car Animation Trials
 
-  const car1 = document.querySelector('.car1')
+  const startGame = document.querySelector('.start')
 
-  car1.addEventListener(('mouseover'), () => {
+  startGame.addEventListener(('click'), () => {
   
-    const carAcross = setInterval(() => {
+    const car1Across = setInterval(() => {
       cells[car1Index].classList.remove('car1')
       car1Index++
+      if (car1Index > car1StartIndex + width - 1) {
+        car1Index = car1StartIndex
+      }
       cells[car1Index].classList.add('car1')
     }, 1000)
 
-    setTimeout(() => {
-      clearInterval(carAcross)
-      cells[car1Index].classList.remove('car1')
-    }, 10000)
+    // To timeout car1 movement
+    // setTimeout(() => {
+    //   clearInterval(carAcross)
+    //   cells[car1Index].classList.remove('car1')
+    // }, 20000)
   
-  })
-
-  const car2 = document.querySelector('.car2')
-
-  car2.addEventListener(('mouseover'), () => {
-  
-    const carAcross = setInterval(() => {
+    const car2Across = setInterval(() => {
       cells[car2Index].classList.remove('car2')
-      car2Index++
+      car2Index--
+      if (car2Index < car2StartIndex - width + 1) {
+        car2Index = car2StartIndex
+      }
       cells[car2Index].classList.add('car2')
     }, 500)
 
-    setTimeout(() => {
-      clearInterval(carAcross)
-      cells[car2Index].classList.remove('car2')
-    }, 5000)
-  
+    // To timeout car1 movement
+    // setTimeout(() => {
+    //   clearInterval(carAcross)
+    //   cells[car2Index].classList.remove('car2')
+    // }, 5000)
+
   })
+  
+
+
 
 
 })

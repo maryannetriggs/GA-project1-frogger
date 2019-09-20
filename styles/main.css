@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 body {
@@ -27,6 +28,14 @@ body {
   flex-grow: 1;
   height: 10%;
   width: 10%;
+}
+
+div.start {
+  background-color: rebeccapurple;
+  font-size: 40px;
+  padding: 10px 25px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .grid div.frog {
