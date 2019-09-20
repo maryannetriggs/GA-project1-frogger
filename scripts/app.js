@@ -2,12 +2,15 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
+
   // Setting board width and height
   const width = 10
+
 
   // Variables for creating grid
   const grid = document.querySelector('.grid')
   const cells = []
+
 
   // Logic to create grid
   function handleClick(e) {
@@ -21,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
     cells.push(cell)
   }
 
+
   // Variables for game pieces
   let frogIndex = cells.length - 1
   const lilyIndex = 0
@@ -29,11 +33,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const car2StartIndex = (0.6 * cells.length) - 1
   let car2Index = car2StartIndex
 
+
   // Logic to create frog, lilypad and car divs
   cells[frogIndex].classList.add('frog')
   cells[lilyIndex].classList.add('lily')
   cells[car1Index].classList.add('car1')
   cells[car2Index].classList.add('car2')
+
 
   // Frog controls logic
   document.addEventListener('keyup', (e) => {
@@ -56,44 +62,62 @@ window.addEventListener('DOMContentLoaded', () => {
 
     cells[frogIndex].classList.add('frog')
 
+    winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
+    
   })
+
+
+  // Win condition
+
+  const gameEndText = document.createElement('h1')
+
+  function winOrLose(frogIndex, lilyIndex, car1Index, car2Index) {
+    if (frogIndex === lilyIndex) {
+      gameEndText.innerHTML = 'YOU WON!'
+      grid.appendChild(gameEndText)
+      cells[frogIndex].classList.remove('frog')
+      cells[frogIndex].classList.remove('lily')
+      cells[frogIndex].classList.add('winner')
+    } else if (frogIndex === car1Index || frogIndex === car2Index) {
+      gameEndText.innerHTML = 'YOU LOST!'
+      grid.appendChild(gameEndText)
+      cells[frogIndex].classList.remove('frog')
+      cells[frogIndex].classList.add('splat')
+    }
+  }
+
 
   // Car Animation Trials
 
   const startGame = document.querySelector('.start')
 
   startGame.addEventListener(('click'), () => {
-  
-    const car1Across = setInterval(() => {
+
+    setInterval(() => {
       cells[car1Index].classList.remove('car1')
       car1Index++
+      winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
       if (car1Index > car1StartIndex + width - 1) {
         car1Index = car1StartIndex
       }
       cells[car1Index].classList.add('car1')
     }, 1000)
-
-    // To timeout car1 movement
-    // setTimeout(() => {
-    //   clearInterval(carAcross)
-    //   cells[car1Index].classList.remove('car1')
-    // }, 20000)
   
-    const car2Across = setInterval(() => {
+    setInterval(() => {
       cells[car2Index].classList.remove('car2')
       car2Index--
+      winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
       if (car2Index < car2StartIndex - width + 1) {
         car2Index = car2StartIndex
       }
       cells[car2Index].classList.add('car2')
     }, 500)
 
-    // To timeout car1 movement
+    // To timeout car movement
     // setTimeout(() => {
     //   clearInterval(carAcross)
-    //   cells[car2Index].classList.remove('car2')
-    // }, 5000)
-
+    //   cells[carIndex].classList.remove('car')
+    // }, x000)
   })
   
 

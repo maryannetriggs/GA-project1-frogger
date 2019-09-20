@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+header {
+  height: 100px;
+}
+
 .grid {
   align-items: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
@@ -45,6 +49,11 @@ div.start {
 
 .grid div.splat {
   background-color: red;
+  background-size: 300px;
+}
+
+.grid div.winner {
+  background-color: goldenrod;
   background-size: 300px;
 }
 
