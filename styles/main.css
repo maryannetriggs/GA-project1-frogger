@@ -18,6 +18,7 @@ header {
 .grid {
   align-items: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  background-image: url();
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
@@ -55,11 +56,13 @@ div.start {
 .grid div.winner {
   background-color: goldenrod;
   background-size: 300px;
+  border-radius: 50%;
 }
 
 .grid div.lily {
   background-color: lightgreen;
   background-size: 300px;
+  border-radius: 50%;
 }
 
 .grid div.car1 {

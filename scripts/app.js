@@ -30,6 +30,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const lilyIndex = 0
   const car1StartIndex = 0.7 * cells.length
   let car1Index = car1StartIndex
+
+  const slowCar1StartIndex = 3 + 0.7 * cells.length
+  let slowCar1Index = slowCar1StartIndex
+
   const car2StartIndex = (0.6 * cells.length) - 1
   let car2Index = car2StartIndex
 
@@ -39,10 +43,12 @@ window.addEventListener('DOMContentLoaded', () => {
   cells[lilyIndex].classList.add('lily')
   cells[car1Index].classList.add('car1')
   cells[car2Index].classList.add('car2')
+  cells[slowCar1Index].classList.add('car1')
 
 
   // Frog controls logic
-  document.addEventListener('keyup', (e) => {
+  document.addEventListener('keyup', e => {
+    console.log(e.keyCode)
 
     const x = frogIndex % width
     const y = Math.floor(frogIndex / width)
@@ -63,8 +69,8 @@ window.addEventListener('DOMContentLoaded', () => {
     cells[frogIndex].classList.add('frog')
 
     winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
-    
   })
+  
 
 
   // Win condition
@@ -93,16 +99,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
   startGame.addEventListener(('click'), () => {
 
+
+
     setInterval(() => {
+
       cells[car1Index].classList.remove('car1')
+      cells[slowCar1Index].classList.remove('car1')
       car1Index++
+      slowCar1Index++
       winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
       if (car1Index > car1StartIndex + width - 1) {
         car1Index = car1StartIndex
       }
+      if (slowCar1Index > slowCar1StartIndex + width - 4) {
+        slowCar1Index = slowCar1StartIndex - 3
+      }
       cells[car1Index].classList.add('car1')
+      cells[slowCar1Index].classList.add('car1')
+
     }, 1000)
-  
+
+
+    // setInterval(() => {
+    //   console.log('slow car create')
+    //   createSlowCar()
+    // }, 3000)
+
     setInterval(() => {
       cells[car2Index].classList.remove('car2')
       car2Index--
@@ -119,7 +141,7 @@ window.addEventListener('DOMContentLoaded', () => {
     //   cells[carIndex].classList.remove('car')
     // }, x000)
   })
-  
+
 
 
 
