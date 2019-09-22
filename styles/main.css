@@ -46,6 +46,7 @@ div.start {
 .grid div.frog {
   background-color: green;
   background-size: 300px;
+  border-radius: 20px;
 }
 
 .grid div.splat {
@@ -72,5 +73,10 @@ div.start {
 
 .grid div.car2 {
   background-color: darkgray;
+  background-size: 300px;
+}
+
+.river1 {
+  background-color: darkblue;
   background-size: 300px;
 }

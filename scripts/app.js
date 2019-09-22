@@ -11,6 +11,29 @@ window.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const cells = []
 
+  // KeyUp event function
+  const keyUpEvent = e => {
+    // console.log(getDirection)
+    const x = frogIndex % width
+    const y = Math.floor(frogIndex / width)
+
+    cells[frogIndex].classList.remove('frog')
+
+    switch (e.keyCode) {
+      case 37: if (x > 0) frogIndex -= 1
+        break
+      case 38: if (y > 0) frogIndex -= width
+        break
+      case 39: if (x < width - 1) frogIndex += 1
+        break
+      case 40: if (y < width - 1) frogIndex += width
+        break
+    }
+
+    cells[frogIndex].classList.add('frog')
+
+    winOrLose(frogIndex, lilyIndex, slowCar1Index, slowCar2Index, slowCar3Index, fastCar1Index, fastCar2Index)
+  }
 
   // Logic to create grid
   function handleClick(e) {
@@ -44,6 +67,13 @@ window.addEventListener('DOMContentLoaded', () => {
   let fastCar2Index = fastCar2StartIndex
 
 
+  // Creating river 1 array
+  const river1 = cells.slice(30, 40)
+  river1.forEach(element => {
+    element.classList.add('river1')
+  })
+
+
   // Logic to create frog, lilypad and car divs
   cells[frogIndex].classList.add('frog')
   cells[lilyIndex].classList.add('lily')
@@ -52,34 +82,9 @@ window.addEventListener('DOMContentLoaded', () => {
   cells[slowCar3Index].classList.add('car1')
   cells[fastCar1Index].classList.add('car2')
   cells[fastCar2Index].classList.add('car2')
-
   
-  
-
-
   // Frog controls logic
-  document.addEventListener('keyup', e => {
-
-    const x = frogIndex % width
-    const y = Math.floor(frogIndex / width)
-
-    cells[frogIndex].classList.remove('frog')
-
-    switch (e.keyCode) {
-      case 37: if (x > 0) frogIndex -= 1
-        break
-      case 38: if (y > 0) frogIndex -= width
-        break
-      case 39: if (x < width - 1) frogIndex += 1
-        break
-      case 40: if (y < width - 1) frogIndex += width
-        break
-    }
-
-    cells[frogIndex].classList.add('frog')
-
-    winOrLose(frogIndex, lilyIndex, slowCar1Index, slowCar2Index, slowCar3Index, fastCar1Index, fastCar2Index)
-  })
+  document.addEventListener('keyup', keyUpEvent)
 
 
   // Win condition
@@ -93,11 +98,13 @@ window.addEventListener('DOMContentLoaded', () => {
       cells[frogIndex].classList.remove('frog')
       cells[frogIndex].classList.remove('lily')
       cells[frogIndex].classList.add('winner')
+      document.removeEventListener('keyup', keyUpEvent)
     } else if (frogIndex === slowCar1Index || frogIndex === slowCar2Index || frogIndex === slowCar3Index || frogIndex === fastCar1Index || frogIndex === fastCar2Index) {
       gameEndText.innerHTML = 'YOU LOST!'
       grid.appendChild(gameEndText)
       cells[frogIndex].classList.remove('frog')
       cells[frogIndex].classList.add('splat')
+      document.removeEventListener('keyup', keyUpEvent)
     }
   }
 
