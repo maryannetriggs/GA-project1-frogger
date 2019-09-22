@@ -28,27 +28,37 @@ window.addEventListener('DOMContentLoaded', () => {
   // Variables for game pieces
   let frogIndex = cells.length - 1
   const lilyIndex = 0
-  const car1StartIndex = 0.7 * cells.length
-  let car1Index = car1StartIndex
 
-  const slowCar1StartIndex = 3 + 0.7 * cells.length
+  // Slow cars 
+  const slowCar1StartIndex = 0.7 * cells.length
   let slowCar1Index = slowCar1StartIndex
+  const slowCar2StartIndex = 3 + 0.7 * cells.length
+  let slowCar2Index = slowCar2StartIndex
+  const slowCar3StartIndex = 6 + 0.7 * cells.length
+  let slowCar3Index = slowCar3StartIndex
 
-  const car2StartIndex = (0.6 * cells.length) - 1
-  let car2Index = car2StartIndex
+  // Fast cars
+  const fastCar1StartIndex = (0.6 * cells.length) - 1
+  let fastCar1Index = fastCar1StartIndex
+  const fastCar2StartIndex = (0.6 * cells.length) - 6
+  let fastCar2Index = fastCar2StartIndex
 
 
   // Logic to create frog, lilypad and car divs
   cells[frogIndex].classList.add('frog')
   cells[lilyIndex].classList.add('lily')
-  cells[car1Index].classList.add('car1')
-  cells[car2Index].classList.add('car2')
   cells[slowCar1Index].classList.add('car1')
+  cells[slowCar2Index].classList.add('car1')
+  cells[slowCar3Index].classList.add('car1')
+  cells[fastCar1Index].classList.add('car2')
+  cells[fastCar2Index].classList.add('car2')
+
+  
+  
 
 
   // Frog controls logic
   document.addEventListener('keyup', e => {
-    console.log(e.keyCode)
 
     const x = frogIndex % width
     const y = Math.floor(frogIndex / width)
@@ -68,23 +78,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     cells[frogIndex].classList.add('frog')
 
-    winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
+    winOrLose(frogIndex, lilyIndex, slowCar1Index, slowCar2Index, slowCar3Index, fastCar1Index, fastCar2Index)
   })
-  
 
 
   // Win condition
 
   const gameEndText = document.createElement('h1')
 
-  function winOrLose(frogIndex, lilyIndex, car1Index, car2Index) {
+  function winOrLose(frogIndex, lilyIndex, slowCar1Index, slowCar2Index, slowCar3Index, fastCar1Index, fastCar2Index) {
     if (frogIndex === lilyIndex) {
       gameEndText.innerHTML = 'YOU WON!'
       grid.appendChild(gameEndText)
       cells[frogIndex].classList.remove('frog')
       cells[frogIndex].classList.remove('lily')
       cells[frogIndex].classList.add('winner')
-    } else if (frogIndex === car1Index || frogIndex === car2Index) {
+    } else if (frogIndex === slowCar1Index || frogIndex === slowCar2Index || frogIndex === slowCar3Index || frogIndex === fastCar1Index || frogIndex === fastCar2Index) {
       gameEndText.innerHTML = 'YOU LOST!'
       grid.appendChild(gameEndText)
       cells[frogIndex].classList.remove('frog')
@@ -93,53 +102,52 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // Car Animation Trials
+  // Car Animation
 
   const startGame = document.querySelector('.start')
 
   startGame.addEventListener(('click'), () => {
 
-
-
+    // Slow cars
     setInterval(() => {
 
-      cells[car1Index].classList.remove('car1')
       cells[slowCar1Index].classList.remove('car1')
-      car1Index++
+      cells[slowCar2Index].classList.remove('car1')
+      cells[slowCar3Index].classList.remove('car1')
       slowCar1Index++
-      winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
-      if (car1Index > car1StartIndex + width - 1) {
-        car1Index = car1StartIndex
+      slowCar2Index++
+      slowCar3Index++
+      winOrLose(frogIndex, lilyIndex, slowCar1Index, slowCar2Index, slowCar3Index, fastCar1Index, fastCar2Index)
+      if (slowCar1Index > slowCar1StartIndex + width - 1) {
+        slowCar1Index = slowCar1StartIndex
+      } else if (slowCar2Index > slowCar2StartIndex + width - 4) {
+        slowCar2Index = slowCar2StartIndex - 3
+      } else if (slowCar3Index > slowCar3StartIndex + width - 7) {
+        slowCar3Index = slowCar3StartIndex - 6
       }
-      if (slowCar1Index > slowCar1StartIndex + width - 4) {
-        slowCar1Index = slowCar1StartIndex - 3
-      }
-      cells[car1Index].classList.add('car1')
       cells[slowCar1Index].classList.add('car1')
+      cells[slowCar2Index].classList.add('car1')
+      cells[slowCar3Index].classList.add('car1')
 
     }, 1000)
 
-
-    // setInterval(() => {
-    //   console.log('slow car create')
-    //   createSlowCar()
-    // }, 3000)
-
+    // Fast cars
     setInterval(() => {
-      cells[car2Index].classList.remove('car2')
-      car2Index--
-      winOrLose(frogIndex, lilyIndex, car1Index, car2Index)
-      if (car2Index < car2StartIndex - width + 1) {
-        car2Index = car2StartIndex
+      cells[fastCar1Index].classList.remove('car2')
+      cells[fastCar2Index].classList.remove('car2')
+      fastCar1Index--
+      fastCar2Index--
+      winOrLose(frogIndex, lilyIndex, slowCar1Index, slowCar2Index, slowCar3Index, fastCar1Index, fastCar2Index)
+      if (fastCar1Index < fastCar1StartIndex - width + 1) {
+        fastCar1Index = fastCar1StartIndex
+      } else if (fastCar2Index < fastCar2StartIndex - width + 6) {
+        fastCar2Index = fastCar2StartIndex + 5
       }
-      cells[car2Index].classList.add('car2')
-    }, 500)
+      cells[fastCar1Index].classList.add('car2')
+      cells[fastCar2Index].classList.add('car2')
 
-    // To timeout car movement
-    // setTimeout(() => {
-    //   clearInterval(carAcross)
-    //   cells[carIndex].classList.remove('car')
-    // }, x000)
+    }, 400)
+
   })
 
 
