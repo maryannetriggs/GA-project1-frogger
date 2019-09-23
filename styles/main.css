@@ -77,6 +77,21 @@ div.start {
 }
 
 .river1 {
-  background-color: darkblue;
+  background-color: skyblue;
+  background-size: 300px;
+}
+
+.river2 {
+  background-color: mediumturquoise;
+  background-size: 300px;
+}
+
+.road {
+  background-color: gainsboro;
+  background-size: 300px;
+}
+
+.log1 {
+  background-color: burlywood;
   background-size: 300px;
 }
