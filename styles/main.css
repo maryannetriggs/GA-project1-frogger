@@ -4,20 +4,28 @@
 }
 
 body {
-  align-items: center;
-  display: flex;
   height: 100vh;
-  justify-content: center;
   margin: 0;
 }
 
 header {
-  height: 100px;
+  text-align: center;
 }
 
-.grid {
+h1 {
+  font-size: 50px;
+  color: darkgreen;
+}
+
+div.game-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+div.grid {
   align-items: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px 0 rgba(0, 128, 0, 0.2);
   background-image: url();
   display: flex;
   flex-grow: 1;
@@ -28,19 +36,38 @@ header {
   max-width: 600px;
 }
 
-.grid div {
-  /* border: 1px solid; */
+div.grid div {
+  /* border: 1px solid black; */
   flex-grow: 1;
   height: 10%;
   width: 10%;
 }
 
-div.start {
-  background-color: rebeccapurple;
+div.buttons {
+  text-align: center;
+}
+
+div.start, div.reset, div.gameEndText {
+  margin-bottom: 30px;
+}
+
+div.start, div.reset {
   font-size: 40px;
   padding: 10px 25px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+div.start {
+  background-color: rebeccapurple;
+}
+
+div.reset {
+  background-color: violet;
+}
+
+div.gameEndText {
+  font-size: 25px;
 }
 
 .grid div.frog {
@@ -49,21 +76,20 @@ div.start {
   border-radius: 20px;
 }
 
+.grid div.lily {
+  background-color: lightgreen;
+  background-size: 300px;
+  border-radius: 50%;
+}
+
 .grid div.splat {
   background-color: red;
   background-size: 300px;
 }
 
-.grid div.winner {
-  background-color: goldenrod;
+.safespace {
+  background-color: honeydew;
   background-size: 300px;
-  border-radius: 50%;
-}
-
-.grid div.lily {
-  background-color: lightgreen;
-  background-size: 300px;
-  border-radius: 50%;
 }
 
 .grid div.car1 {
@@ -76,6 +102,13 @@ div.start {
   background-size: 300px;
 }
 
+.road {
+  background-color: gainsboro;
+  background-size: 300px;
+  border-top: white 1px dashed;
+  border-bottom: white 1px dashed;
+}
+
 .river1 {
   background-color: skyblue;
   background-size: 300px;
@@ -86,12 +119,13 @@ div.start {
   background-size: 300px;
 }
 
-.road {
-  background-color: gainsboro;
-  background-size: 300px;
-}
-
 .log1 {
   background-color: burlywood;
   background-size: 300px;
+}
+
+.grid div.winner {
+  background-color: goldenrod;
+  background-size: 300px;
+  border-radius: 50%;
 }
