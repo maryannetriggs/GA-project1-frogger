@@ -91,6 +91,8 @@ div.gameEndText {
 .grid div.lily {
   background-image: url(../images/pixel-lilypad-transparent.png);
   background-size: 60px;
+  height: 100%;
+  width: 100%;
 }
 
 .safespace {

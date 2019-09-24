@@ -11,46 +11,61 @@ window.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const cells = []
 
+
   // KeyUp event function
   const keyUpEvent = e => {
 
-    const x = frogPosition % width
-    const y = Math.floor(frogPosition / width)
+    const parent = frog.parentElement
+    parent.removeChild(frog)
+    let newFrogPosition = 0
+    if (parent.classList.contains('log')) {
+      newFrogPosition = cells.indexOf(parent.parentElement)
+    } else {
+      newFrogPosition = cells.indexOf(parent)
+    }
 
-    cells[frogPosition].removeChild(frog)
+    const x = newFrogPosition % width
+    const y = Math.floor(newFrogPosition / width)
 
     switch (e.keyCode) {
-      case 37: if (x > 0) frogPosition -= 1
+      case 37: if (x > 0) newFrogPosition -= 1
         break
-      case 38: if (y > 0) frogPosition -= width
+      case 38: if (y > 0) newFrogPosition -= width
         break
-      case 39: if (x < width - 1) frogPosition += 1
+      case 39: if (x < width - 1) newFrogPosition += 1
         break
-      case 40: if (y < width - 1) frogPosition += width
+      case 40: if (y < width - 1) newFrogPosition += width
         break
     }
 
-    const childrenOfCell = cells[frogPosition].querySelector('.log')
-    
-    
-    if (childrenOfCell) {
-      console.log('frog on a log')
-      console.log(childrenOfCell)
-      
-      childrenOfCell.appendChild(cells[frogPosition])
-      console.log(childrenOfCell)
+    const newPositionChildren = cells[newFrogPosition].children
+    if (newPositionChildren.length === 0) {
+      cells[newFrogPosition].appendChild(frog)
+      if (cells[newFrogPosition].classList.contains('river1') || cells[newFrogPosition].classList.contains('river2')) {
+        console.log('die in river')
+      } else {
+        console.log('live')
+      }
+    } else {
+      const child = newPositionChildren[0]
+      if (child.classList.contains('car') || child.classList.contains('car2')) {
+        cells[newFrogPosition].appendChild(frog)
+        console.log('die in horiffic car accident')
+      } else {
+        child.appendChild(frog)
+        if (child.classList.contains('lily')) {
+          console.log('you win!!!!')
+        } else {
+          console.log('live')
+        }
+      }
     }
 
-    // const childrenOfCell = cells[frogPosition].children[0]
-    // console.log(childrenOfCell)
-
-
-
-
-    cells[frogPosition].appendChild(frog)
-
-    winOrLose()
   }
+
+  // Frog controls logic
+
+  document.addEventListener('keyup', keyUpEvent)
 
   // Logic to create grid
   function handleClick(e) {
@@ -112,13 +127,14 @@ window.addEventListener('DOMContentLoaded', () => {
     element.classList.add('safespace')
   })
 
-  // Variables for game pieces
+  // Variables for frog and lilypad
   const frog = document.createElement('div')
   cells[cells.length - 1].appendChild(frog)
   frog.classList.add('frog')
 
-  let frogPosition = cells.indexOf(frog.parentElement)
-  const lilyIndex = 0
+  const lily = document.createElement('div')
+  cells[0].appendChild(lily)
+  lily.classList.add('lily')
   
   // Slow Cars
   const slowCar1 = document.createElement('div')
@@ -172,36 +188,11 @@ window.addEventListener('DOMContentLoaded', () => {
     element.classList.add('log')
   })
 
-  // Logic to create frog, lilypad and car divs
- 
-  cells[lilyIndex].classList.add('lily')
-
-  
-  // Frog controls logic
-
-  document.addEventListener('keyup', keyUpEvent)
 
   // Win/lose condition
 
   const gameEndText = document.createElement('h2')
   const declareWinner = document.querySelector('.gameEndText')
-
-  function winOrLose() {
-    // if (frogIndex === lilyIndex) {
-    //   gameEndText.innerHTML = 'YOU WON!'
-    //   declareWinner.appendChild(gameEndText)
-    //   cells[frogIndex].classList.remove('frog')
-    //   cells[frogIndex].classList.remove('lily')
-    //   cells[frogIndex].classList.add('winner')
-    //   document.removeEventListener('keyup', keyUpEvent)
-    // } else if (element.classList.contains('car1') && element.classList.contains('frog')) {
-    //   gameEndText.innerHTML = 'YOU LOST!'
-    //   grid.appendChild(gameEndText)
-    //   cells[frogIndex].classList.remove('frog')
-    //   cells[frogIndex].classList.add('splat')
-    //   document.removeEventListener('keyup', keyUpEvent)
-    // }
-  }
 
 
   // Buttons
@@ -227,6 +218,9 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
           road3[roadPosition + 1].appendChild(car)
         }
+        if (car.parentElement.childElementCount > 1) {
+          console.log('run over by a car') // GAME OVER
+        }
       })
 
       // Slow logs
@@ -235,6 +229,10 @@ window.addEventListener('DOMContentLoaded', () => {
         river2[riverPosition].removeChild(log)
         if (riverPosition === river2.length - 1) {
           river2[0].appendChild(log)
+          if (log.childElementCount === 1) {
+            console.log('frog on log overboard') // GAME OVER
+            frog.parentElement.removeChild(frog)
+          }
         } else {
           river2[riverPosition + 1].appendChild(log)
         }
@@ -253,6 +251,9 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
           road1[roadPosition - 1].appendChild(car)
         }
+        if (car.parentElement.childElementCount > 1) {
+          console.log('run over by a car') // GAME OVER
+        }
       })
     }, 400)
 
@@ -263,6 +264,10 @@ window.addEventListener('DOMContentLoaded', () => {
         river1[riverPosition].removeChild(log)
         if (riverPosition === 0) {
           river1[9].appendChild(log)
+          if (log.childElementCount === 1) {
+            console.log('frog on log overboard') // GAME OVER
+            frog.parentElement.removeChild(frog)
+          }
         } else {
           river1[riverPosition - 1].appendChild(log)
         }
