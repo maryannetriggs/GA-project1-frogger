@@ -3,9 +3,13 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
-body {
+html {
   height: 100vh;
+}
+
+body {
   margin: 0;
+  height: 100%;
 }
 
 div.title {
@@ -72,8 +76,10 @@ div.gameEndText {
 }
 
 .grid div.frog {
-  background-image: url(images/pixel-car-transparent);
+  background-image: url();
   background-color: green;
+  height: 100%;
+  width: 100%;
   background-size: 300px;
   border-radius: 20px;
 }
@@ -98,11 +104,15 @@ div.gameEndText {
 .grid div.car1 {
   background-color: black;
   background-size: 300px;
+  height: 100%;
+  width: 100%;
 }
 
 .grid div.car2 {
   background-color: darkgray;
   background-size: 300px;
+  height: 100%;
+  width: 100%;
 }
 
 .road {
@@ -122,9 +132,18 @@ div.gameEndText {
   background-size: 300px;
 }
 
-.log1 {
+.river1 div.log {
   background-color: burlywood;
   background-size: 300px;
+  height: 100%;
+  width: 100%;
+}
+
+.river2 div.log {
+  background-color: burlywood;
+  background-size: 300px;
+  height: 100%;
+  width: 100%;
 }
 
 .grid div.winner {

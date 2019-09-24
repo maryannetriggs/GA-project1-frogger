@@ -14,24 +14,23 @@ window.addEventListener('DOMContentLoaded', () => {
   // KeyUp event function
   const keyUpEvent = e => {
 
-    const x = frogIndex % width
-    const y = Math.floor(frogIndex / width)
+    const x = frogPosition % width
+    const y = Math.floor(frogPosition / width)
 
-    cells[frogIndex].classList.remove('frog')
+    cells[frogPosition].removeChild(frog)
 
     switch (e.keyCode) {
-      case 37: if (x > 0) frogIndex -= 1
+      case 37: if (x > 0) frogPosition -= 1
         break
-      case 38: if (y > 0) frogIndex -= width
+      case 38: if (y > 0) frogPosition -= width
         break
-      case 39: if (x < width - 1) frogIndex += 1
+      case 39: if (x < width - 1) frogPosition += 1
         break
-      case 40: if (y < width - 1) frogIndex += width
+      case 40: if (y < width - 1) frogPosition += width
         break
     }
 
-    cells[frogIndex].classList.add('frog')
-
+    cells[frogPosition].appendChild(frog)
 
     winOrLose()
   }
@@ -60,9 +59,21 @@ window.addEventListener('DOMContentLoaded', () => {
     element.classList.add('river2')
   })
 
-  // Creating road array
-  const road = cells.slice(50, 80)
-  road.forEach(element => {
+  // Creating road 1 array
+  const road1 = cells.slice(50, 60)
+  road1.forEach(element => {
+    element.classList.add('road')
+  })
+
+  // Creating road 2 array
+  const road2 = cells.slice(60, 70)
+  road2.forEach(element => {
+    element.classList.add('road')
+  })
+
+  // Creating road 3 array
+  const road3 = cells.slice(70, 80)
+  road3.forEach(element => {
     element.classList.add('road')
   })
 
@@ -85,65 +96,72 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   // Variables for game pieces
-  let frogIndex = cells.length - 1
+  const frog = document.createElement('div')
+  cells[cells.length - 1].appendChild(frog)
+  frog.classList.add('frog')
+
+  let frogPosition = cells.indexOf(frog.parentElement)
+  console.log(frogPosition)
+
   const lilyIndex = 0
-
-  // Slow cars 
-  const slowCar1StartIndex = 20
-  let slowCar1Index = slowCar1StartIndex
-  const slowCar2StartIndex = 23
-  let slowCar2Index = slowCar2StartIndex
-  const slowCar3StartIndex = 26
-  let slowCar3Index = slowCar3StartIndex
-
-  // Fast cars
-  const fastCar1StartIndex = 9
-  let fastCar1Index = fastCar1StartIndex
-  const fastCar2StartIndex = 4
-  let fastCar2Index = fastCar2StartIndex
-
-  // Slow logs 
-  const slowLog1Of2StartIndex = 1
-  let slowLog1Of2Index = slowLog1Of2StartIndex
-  const slowLog2Of2StartIndex = 0
-  let slowLog2Of2Index = slowLog2Of2StartIndex
-  const slow2Log1Of2StartIndex = 7
-  let slow2Log1Of2Index = slow2Log1Of2StartIndex
-  const slow2Log2Of2StartIndex = 6
-  let slow2Log2Of2Index = slow2Log2Of2StartIndex
-
-  // Fast logs 
-  const fastLog1Of2StartIndex = 8
-  let fastLog1Of2Index = fastLog1Of2StartIndex
-  const fastLog2Of2StartIndex = 9
-  let fastLog2Of2Index = fastLog2Of2StartIndex
-  const fast2Log1Of2StartIndex = 2
-  let fast2Log1Of2Index = fast2Log1Of2StartIndex
-  const fast2Log2Of2StartIndex = 3
-  let fast2Log2Of2Index = fast2Log2Of2StartIndex
   
+  // Slow Cars
+  const slowCar1 = document.createElement('div')
+  road3[0].appendChild(slowCar1)
+  const slowCar2 = document.createElement('div')
+  road3[3].appendChild(slowCar2)
+  const slowCar3 = document.createElement('div')
+  road3[6].appendChild(slowCar3)
+  const slowCars = [slowCar1, slowCar2, slowCar3]
+  slowCars.forEach(element => {
+    element.classList.add('car1')
+  })
+
+  // Fast Cars
+  const fastCar1 = document.createElement('div')
+  road1[9].appendChild(fastCar1)
+  const fastCar2 = document.createElement('div')
+  road1[4].appendChild(fastCar2)
+  const fastCars = [fastCar1, fastCar2]
+  fastCars.forEach(element => {
+    element.classList.add('car2')
+  })
+
+  // Slow logs
+
+  const slowLog1of2 = document.createElement('div')
+  river2[0].appendChild(slowLog1of2)
+  const slowLog2of2 = document.createElement('div')
+  river2[1].appendChild(slowLog2of2)
+  const slowLog1of22 = document.createElement('div')
+  river2[6].appendChild(slowLog1of22)
+  const slowLog2of22 = document.createElement('div')
+  river2[7].appendChild(slowLog2of22)
+  const slowLogs = [slowLog1of2, slowLog2of2, slowLog1of22, slowLog2of22]
+  slowLogs.forEach(element => {
+    element.classList.add('log')
+  })
+
+  // Fast logs
+
+  const fastLog1of2 = document.createElement('div')
+  river1[8].appendChild(fastLog1of2)
+  const fastLog2of2 = document.createElement('div')
+  river1[9].appendChild(fastLog2of2)
+  const fastLog1of22 = document.createElement('div')
+  river1[3].appendChild(fastLog1of22)
+  const fastLog2of22 = document.createElement('div')
+  river1[4].appendChild(fastLog2of22)
+  const fastLogs = [fastLog1of2, fastLog2of2, fastLog1of22, fastLog2of22]
+  fastLogs.forEach(element => {
+    element.classList.add('log')
+  })
 
   // Logic to create frog, lilypad and car divs
-  cells[frogIndex].classList.add('frog')
+ 
   cells[lilyIndex].classList.add('lily')
-  road[slowCar1Index].classList.add('car1')
-  road[slowCar2Index].classList.add('car1')
-  road[slowCar3Index].classList.add('car1')
-  road[fastCar1Index].classList.add('car2')
-  road[fastCar2Index].classList.add('car2')
 
-  // Logic to create log divs
-  river1[slowLog1Of2Index].classList.add('log1')
-  river1[slowLog2Of2Index].classList.add('log1')
-  river1[slow2Log1Of2Index].classList.add('log1')
-  river1[slow2Log2Of2Index].classList.add('log1')
-
-  river2[fastLog1Of2Index].classList.add('log1')
-  river2[fastLog2Of2Index].classList.add('log1')
-  river2[fast2Log1Of2Index].classList.add('log1')
-  river2[fast2Log2Of2Index].classList.add('log1')
-    
-
+  
   // Frog controls logic
 
   document.addEventListener('keyup', keyUpEvent)
@@ -154,20 +172,20 @@ window.addEventListener('DOMContentLoaded', () => {
   const declareWinner = document.querySelector('.gameEndText')
 
   function winOrLose() {
-    if (frogIndex === lilyIndex) {
-      gameEndText.innerHTML = 'YOU WON!'
-      declareWinner.appendChild(gameEndText)
-      cells[frogIndex].classList.remove('frog')
-      cells[frogIndex].classList.remove('lily')
-      cells[frogIndex].classList.add('winner')
-      document.removeEventListener('keyup', keyUpEvent)
-    } else if (element.classList.contains('car1') && element.classList.contains('frog')) {
-      gameEndText.innerHTML = 'YOU LOST!'
-      grid.appendChild(gameEndText)
-      cells[frogIndex].classList.remove('frog')
-      cells[frogIndex].classList.add('splat')
-      document.removeEventListener('keyup', keyUpEvent)
-    }
+    // if (frogIndex === lilyIndex) {
+    //   gameEndText.innerHTML = 'YOU WON!'
+    //   declareWinner.appendChild(gameEndText)
+    //   cells[frogIndex].classList.remove('frog')
+    //   cells[frogIndex].classList.remove('lily')
+    //   cells[frogIndex].classList.add('winner')
+    //   document.removeEventListener('keyup', keyUpEvent)
+    // } else if (element.classList.contains('car1') && element.classList.contains('frog')) {
+    //   gameEndText.innerHTML = 'YOU LOST!'
+    //   grid.appendChild(gameEndText)
+    //   cells[frogIndex].classList.remove('frog')
+    //   cells[frogIndex].classList.add('splat')
+    //   document.removeEventListener('keyup', keyUpEvent)
+    // }
   }
 
   // (frogIndex === slowCar1Index || frogIndex === slowCar2Index || frogIndex === slowCar3Index || frogIndex === fastCar1Index || frogIndex === fastCar2Index)
@@ -181,138 +199,60 @@ window.addEventListener('DOMContentLoaded', () => {
     // Slow cars
     setInterval(() => {
 
-      road[slowCar1Index].classList.remove('car1')
-      road[slowCar2Index].classList.remove('car1')
-      road[slowCar3Index].classList.remove('car1')
-      slowCar1Index++
-      slowCar2Index++
-      slowCar3Index++
-      winOrLose()
-      if (slowCar1Index > slowCar1StartIndex + 9) {
-        slowCar1Index = slowCar1StartIndex
-      } else if (slowCar2Index > slowCar2StartIndex + 6) {
-        slowCar2Index = slowCar2StartIndex - 3
-      } else if (slowCar3Index > slowCar3StartIndex + 3) {
-        slowCar3Index = slowCar3StartIndex - 6
-      }
-      road[slowCar1Index].classList.add('car1')
-      road[slowCar2Index].classList.add('car1')
-      road[slowCar3Index].classList.add('car1')
+      slowCars.forEach(car => {
+        const roadPosition = road3.indexOf(car.parentElement)
+        road3[roadPosition].removeChild(car)
+        if (roadPosition === road3.length - 1) {
+          road3[0].appendChild(car)
+        } else {
+          road3[roadPosition + 1].appendChild(car)
+        }
+      })
+
+      // Slow logs
+      slowLogs.forEach(log => {
+        const riverPosition = river2.indexOf(log.parentElement)
+        river2[riverPosition].removeChild(log)
+        if (riverPosition === river2.length - 1) {
+          river2[0].appendChild(log)
+        } else {
+          river2[riverPosition + 1].appendChild(log)
+        }
+      })
 
     }, 1000)
 
     // Fast cars
     setInterval(() => {
-      road[fastCar1Index].classList.remove('car2')
-      road[fastCar2Index].classList.remove('car2')
-      fastCar1Index--
-      fastCar2Index--
-      winOrLose()
-      if (fastCar1Index < fastCar1StartIndex - 9) {
-        fastCar1Index = fastCar1StartIndex
-      } else if (fastCar2Index < fastCar2StartIndex - 4) {
-        fastCar2Index = fastCar2StartIndex + 5
-      }
-      road[fastCar1Index].classList.add('car2')
-      road[fastCar2Index].classList.add('car2')
+
+      fastCars.forEach(car => {
+        const roadPosition = road1.indexOf(car.parentElement)
+        road1[roadPosition].removeChild(car)
+        if (roadPosition === 0) {
+          road1[9].appendChild(car)
+        } else {
+          road1[roadPosition - 1].appendChild(car)
+        }
+      })
+    }, 400)
+
+    // Fast logs
+    setInterval(() => {
+      fastLogs.forEach(log => {
+        const riverPosition = river1.indexOf(log.parentElement)
+        river1[riverPosition].removeChild(log)
+        if (riverPosition === 0) {
+          river1[9].appendChild(log)
+        } else {
+          river1[riverPosition - 1].appendChild(log)
+        }
+      })
 
     }, 400)
 
-    // Slow log 1 - part 1 of 2
-    setInterval(() => {
+ 
 
-      river1[slowLog1Of2Index].classList.remove('log1')
-      slowLog1Of2Index++
-      if (slowLog1Of2Index > slowLog1Of2StartIndex + 8) {
-        slowLog1Of2Index = slowLog1Of2StartIndex - 1
-      }
-      river1[slowLog1Of2Index].classList.add('log1')
-
-    }, 1000)
-
-    // Slow log 1 - part 2 of 2
-    setInterval(() => {
-
-      river1[slowLog2Of2Index].classList.remove('log1')
-      slowLog2Of2Index++
-      if (slowLog2Of2Index > slowLog2Of2StartIndex + 9) {
-        slowLog2Of2Index = slowLog2Of2StartIndex
-      }
-      river1[slowLog2Of2Index].classList.add('log1')
-
-    }, 1000)
-
-    // Slow log 2 - part 1 of 2
-    setInterval(() => {
-
-      river1[slow2Log1Of2Index].classList.remove('log1')
-      slow2Log1Of2Index++
-      if (slow2Log1Of2Index > slow2Log1Of2StartIndex + 2) {
-        slow2Log1Of2Index = slow2Log1Of2StartIndex - 7
-      }
-      river1[slow2Log1Of2Index].classList.add('log1')
-
-    }, 1000)
-
-    // Slow log 2 - part 2 of 2
-    setInterval(() => {
-
-      river1[slow2Log2Of2Index].classList.remove('log1')
-      slow2Log2Of2Index++
-      if (slow2Log2Of2Index > slow2Log2Of2StartIndex + 3) {
-        slow2Log2Of2Index = slow2Log2Of2StartIndex - 6
-      }
-      river1[slow2Log2Of2Index].classList.add('log1')
-
-    }, 1000)
-
-    // Fast log 1 - part 1 of 2
-    setInterval(() => {
-
-      river2[fastLog1Of2Index].classList.remove('log1')
-      fastLog1Of2Index--
-      if (fastLog1Of2Index < fastLog1Of2StartIndex - 8) {
-        fastLog1Of2Index = fastLog1Of2StartIndex + 1
-      }
-      river2[fastLog1Of2Index].classList.add('log1')
-
-    }, 700)
-
-    // Fast log 1 - part 2 of 2
-    setInterval(() => {
-
-      river2[fastLog2Of2Index].classList.remove('log1')
-      fastLog2Of2Index--
-      if (fastLog2Of2Index < fastLog2Of2StartIndex - 9) {
-        fastLog2Of2Index = fastLog2Of2StartIndex
-      }
-      river2[fastLog2Of2Index].classList.add('log1')
-
-    }, 700)
-
-    // Fast log 2 - part 1 of 2
-    setInterval(() => {
-
-      river2[fast2Log1Of2Index].classList.remove('log1')
-      fast2Log1Of2Index--
-      if (fast2Log1Of2Index < fast2Log1Of2StartIndex - 2) {
-        fast2Log1Of2Index = fast2Log1Of2StartIndex + 7
-      }
-      river2[fast2Log1Of2Index].classList.add('log1')
-
-    }, 700)
-
-    // Fast log 2 - part 2 of 2
-    setInterval(() => {
-
-      river2[fast2Log2Of2Index].classList.remove('log1')
-      fast2Log2Of2Index--
-      if (fast2Log2Of2Index < fast2Log2Of2StartIndex - 3) {
-        fast2Log2Of2Index = fast2Log2Of2StartIndex + 6
-      }
-      river2[fast2Log2Of2Index].classList.add('log1')
-
-    }, 700)
+    
 
 
   })
