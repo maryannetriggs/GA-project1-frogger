@@ -30,17 +30,19 @@ window.addEventListener('DOMContentLoaded', () => {
         break
     }
 
-    console.log(frogPosition)
-
     const childrenOfCell = cells[frogPosition].querySelector('.log')
-    console.log(childrenOfCell)
+    
+    
     if (childrenOfCell) {
       console.log('frog on a log')
-      childrenOfCell.appendChild(frogPosition)
+      console.log(childrenOfCell)
+      
+      childrenOfCell.appendChild(cells[frogPosition])
+      console.log(childrenOfCell)
     }
 
-    const childrenOfCell = cells[frogPosition].children[0]
-    console.log(childrenOfCell)
+    // const childrenOfCell = cells[frogPosition].children[0]
+    // console.log(childrenOfCell)
 
 
 
@@ -137,7 +139,7 @@ window.addEventListener('DOMContentLoaded', () => {
   road1[4].appendChild(fastCar2)
   const fastCars = [fastCar1, fastCar2]
   fastCars.forEach(element => {
-    element.classList.add('car')
+    element.classList.add('car2')
   })
 
   // Slow logs
@@ -201,10 +203,17 @@ window.addEventListener('DOMContentLoaded', () => {
     // }
   }
 
-  // Car Animation
+
+  // Buttons
+
+  // Reset
+
+  const resetButton = document.querySelector('.reset')
+  resetButton.addEventListener(('click'), () => {
+    location.reload()
+  })
 
   const startGame = document.querySelector('.start')
-
   startGame.addEventListener(('click'), () => {
 
     // Slow cars
@@ -224,7 +233,6 @@ window.addEventListener('DOMContentLoaded', () => {
       slowLogs.forEach(log => {
         const riverPosition = river2.indexOf(log.parentElement)
         river2[riverPosition].removeChild(log)
-        console.log(riverPosition)
         if (riverPosition === river2.length - 1) {
           river2[0].appendChild(log)
         } else {

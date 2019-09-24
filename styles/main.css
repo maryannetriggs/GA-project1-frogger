@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Courier New', Courier, monospace;
+  overflow: hidden;
 }
 
 html {
@@ -10,6 +11,10 @@ html {
 body {
   margin: 0;
   height: 100%;
+  background-image: url(../images/beach-background.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 div.title {
@@ -17,15 +22,15 @@ div.title {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 80px;
   color: darkgreen;
-  margin-top: 30px;
+  margin: 20px auto;
 }
 
 div.game-wrapper {
   display: flex;
   justify-content: space-evenly;
-  height: 75%;
+  height: 100%;
 }
 
 div.grid {
@@ -49,7 +54,7 @@ div.grid div {
 }
 
 div.buttons {
-  text-align: center;
+  text-align: center;  
 }
 
 div.start, div.reset, div.gameEndText {
@@ -64,11 +69,11 @@ div.start, div.reset {
 }
 
 div.start {
-  background-color: rebeccapurple;
+  background-color: forestgreen;
 }
 
 div.reset {
-  background-color: violet;
+  background-color: palegreen;
 }
 
 div.gameEndText {
@@ -76,24 +81,16 @@ div.gameEndText {
 }
 
 .grid div.frog {
-  background-image: url();
-  background-color: green;
+  background-image: url(../images/pixel-frog-transparent.png);
   height: 100%;
   width: 100%;
-  background-size: 300px;
-  border-radius: 20px;
+  background-size: 60px;
+  border-radius: 18px;
 }
 
 .grid div.lily {
-  background-image: url();
-  background-color: lightgreen;
-  background-size: 300px;
-  border-radius: 50%;
-}
-
-.grid div.splat {
-  background-color: red;
-  background-size: 300px;
+  background-image: url(../images/pixel-lilypad-transparent.png);
+  background-size: 60px;
 }
 
 .safespace {
@@ -102,8 +99,15 @@ div.gameEndText {
 }
 
 .grid div.car {
-  background-color: black;
-  background-size: 300px;
+  background-image: url(../images/pixel-car-transparent-facing-right.png);
+  background-size: 60px;
+  height: 100%;
+  width: 100%;
+}
+
+.grid div.car2 {
+  background-image: url(../images/pixel-car-transparent.png);
+  background-size: 60px;
   height: 100%;
   width: 100%;
 }
@@ -129,22 +133,11 @@ div.gameEndText {
   align-items: center;
 }
 
-.river1 div.log {
+.river1 div.log, .river2 div.log {
   background-color: burlywood;
   background-size: 300px;
   height: 75%;
   width: 100%;
-}
-
-.river2 div.log {
-  background-color: burlywood;
-  background-size: 300px;
-  height: 75%;
-  width: 100%;
-}
-
-.grid div.winner {
-  background-color: goldenrod;
-  background-size: 300px;
-  border-radius: 50%;
+  border-top: 1px solid saddlebrown;
+  border-bottom: 1px solid saddlebrown;
 }
