@@ -30,6 +30,21 @@ window.addEventListener('DOMContentLoaded', () => {
         break
     }
 
+    console.log(frogPosition)
+
+    const childrenOfCell = cells[frogPosition].querySelector('.log')
+    console.log(childrenOfCell)
+    if (childrenOfCell) {
+      console.log('frog on a log')
+      childrenOfCell.appendChild(frogPosition)
+    }
+
+    const childrenOfCell = cells[frogPosition].children[0]
+    console.log(childrenOfCell)
+
+
+
+
     cells[frogPosition].appendChild(frog)
 
     winOrLose()
@@ -101,8 +116,6 @@ window.addEventListener('DOMContentLoaded', () => {
   frog.classList.add('frog')
 
   let frogPosition = cells.indexOf(frog.parentElement)
-  console.log(frogPosition)
-
   const lilyIndex = 0
   
   // Slow Cars
@@ -114,7 +127,7 @@ window.addEventListener('DOMContentLoaded', () => {
   road3[6].appendChild(slowCar3)
   const slowCars = [slowCar1, slowCar2, slowCar3]
   slowCars.forEach(element => {
-    element.classList.add('car1')
+    element.classList.add('car')
   })
 
   // Fast Cars
@@ -124,7 +137,7 @@ window.addEventListener('DOMContentLoaded', () => {
   road1[4].appendChild(fastCar2)
   const fastCars = [fastCar1, fastCar2]
   fastCars.forEach(element => {
-    element.classList.add('car2')
+    element.classList.add('car')
   })
 
   // Slow logs
@@ -188,8 +201,6 @@ window.addEventListener('DOMContentLoaded', () => {
     // }
   }
 
-  // (frogIndex === slowCar1Index || frogIndex === slowCar2Index || frogIndex === slowCar3Index || frogIndex === fastCar1Index || frogIndex === fastCar2Index)
-
   // Car Animation
 
   const startGame = document.querySelector('.start')
@@ -213,6 +224,7 @@ window.addEventListener('DOMContentLoaded', () => {
       slowLogs.forEach(log => {
         const riverPosition = river2.indexOf(log.parentElement)
         river2[riverPosition].removeChild(log)
+        console.log(riverPosition)
         if (riverPosition === river2.length - 1) {
           river2[0].appendChild(log)
         } else {
@@ -249,11 +261,6 @@ window.addEventListener('DOMContentLoaded', () => {
       })
 
     }, 400)
-
- 
-
-    
-
 
   })
 
