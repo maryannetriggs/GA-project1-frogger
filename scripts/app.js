@@ -66,11 +66,12 @@ window.addEventListener('DOMContentLoaded', () => {
     if (newPositionChildren.length === 0) {
       cells[newFrogPosition].appendChild(frog)
       if (cells[newFrogPosition].classList.contains('river1') || cells[newFrogPosition].classList.contains('river2')) {
-        console.log('drown in river')
+        console.log('drown in river') // GAME OVER
         const gameEnding = 'lose'
         winOrLose(gameEnding)
       } else {
-        console.log('live')
+        frog.classList.add('animated', 'pulse')
+        console.log('live') // GAME CONTINUES
       }
     } else {
       const child = newPositionChildren[0]
@@ -82,11 +83,12 @@ window.addEventListener('DOMContentLoaded', () => {
       } else {
         child.appendChild(frog)
         if (child.classList.contains('lily')) {
-          console.log('you win!!!!')
+          console.log('you win!!!!') // YOU WIN
           const gameEnding = 'win'
           winOrLose(gameEnding)
         } else {
-          console.log('live')
+          frog.classList.add('animated', 'pulse')
+          console.log('live') // GAME CONTINUES
         }
       }
     }
