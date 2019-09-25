@@ -26,12 +26,15 @@ window.addEventListener('DOMContentLoaded', () => {
       declareWinner.appendChild(playAgainText)
       declareWinner.style.border = '10px solid black'
       gameEndText.classList.add('animated', 'rubberBand')
+      document.removeEventListener('keyup', keyUpEvent)
+      frog.classList.remove('frog')
     } else {
       gameEndText.innerHTML = 'YOU WON!!'
       declareWinner.appendChild(gameEndText)
       declareWinner.appendChild(playAgainText)
       declareWinner.style.border = '10px solid black'
       gameEndText.classList.add('animated', 'rubberBand')
+      document.removeEventListener('keyup', keyUpEvent)
     }
   }
 
