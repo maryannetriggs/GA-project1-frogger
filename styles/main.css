@@ -58,18 +58,27 @@ div.buttons {
   text-align: center;
   display: flex;
   flex-direction: column;
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
 div.start, div.reset {
   margin-bottom: 30px;
-}
-
-div.start, div.reset {
   font-size: 40px;
   padding: 10px 25px;
   border-radius: 10px;
   cursor: pointer;
+}
+
+div.timer {
+  background-color: black;
+  font-size: 35px;
+  font-family: 'PT Mono', monospace;
+  color: white;
+  display: inline;
+}
+
+div.timer span {
+  font-weight: bold;
 }
 
 div.start {
@@ -130,7 +139,7 @@ div.reset {
 }
 
 .river2 {
-  background-color: mediumturquoise;
+  background-color: skyblue;
   background-size: 300px;
   display: flex;
   align-items: center;

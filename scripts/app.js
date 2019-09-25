@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
       declareWinner.appendChild(gameEndText)
       declareWinner.appendChild(playAgainText)
       declareWinner.style.border = '10px solid black'
-      gameEndText.classList.add('animated', 'rubberBand')
+      // gameEndText.classList.add('animated', 'rubberBand')
       document.removeEventListener('keyup', keyUpEvent)
       frog.classList.remove('frog')
     } else {
@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
       declareWinner.appendChild(gameEndText)
       declareWinner.appendChild(playAgainText)
       declareWinner.style.border = '10px solid black'
-      gameEndText.classList.add('animated', 'rubberBand')
+      // gameEndText.classList.add('animated', 'rubberBand')
       document.removeEventListener('keyup', keyUpEvent)
     }
   }
@@ -231,9 +231,30 @@ window.addEventListener('DOMContentLoaded', () => {
     location.reload()
   })
 
+
   // Start
   const startGame = document.querySelector('.start')
   startGame.addEventListener(('click'), () => {
+
+    // Game timer
+    const timer = document.querySelector('#timer')
+    const timeRemaining = document.querySelector('.timer')
+    let countdown = 15
+
+    const gameTimer = setInterval(() => {
+      countdown--
+      timer.innerHTML = countdown
+      if (countdown === 0) {
+        timeRemaining.classList.add('animated', 'flash')
+      }
+    }, 1000)
+
+    const clearTimer = setTimeout(() => {
+      clearInterval(gameTimer)
+      const gameEnding = 'lose'
+      winOrLose(gameEnding)
+    }, 15000)
+
 
     // Slow items
 
