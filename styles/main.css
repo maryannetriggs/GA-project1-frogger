@@ -42,7 +42,7 @@ div.grid-wrapper {
 }
 
 div.grid {
-  box-shadow: 0 0 20px 0 rgba(0, 128, 0, 0.2);
+  box-shadow: 0 0 40px 0 rgba(0, 128, 0, 0.2);
   display: flex;
   flex-wrap: wrap;
   height: 100%;
@@ -58,7 +58,7 @@ div.buttons {
   text-align: center;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 div.start, div.reset {
@@ -67,6 +67,19 @@ div.start, div.reset {
   padding: 10px 25px;
   border-radius: 10px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+div.start:hover {
+  border: forestgreen 4px solid;
+  background-color: white;
+  color: forestgreen;
+}
+
+div.reset:hover {
+  border: palegreen 4px solid;
+  background-color: white;
+  color: palegreen;
 }
 
 div.timer {
@@ -83,10 +96,12 @@ div.timer span {
 
 div.start {
   background-color: forestgreen;
+  border: forestgreen 4px solid;
 }
 
 div.reset {
   background-color: palegreen;
+  border: palegreen 4px solid;
 }
 
 

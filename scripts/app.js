@@ -1,6 +1,6 @@
 //GitHub link -  https://maryannetriggs.github.io/project-01/
 
-// *************************************************FROGGER*********************************************************
+// *************************************************FROGGER******************************************************
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -10,9 +10,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // Variables for creating grid
   const grid = document.querySelector('.grid')
   const cells = []
+  let gameTimer, clearTimer
 
-
-  // Win/lose event
+  // Win/lose function
 
   const gameEndText = document.createElement('h2')
   const playAgainText = document.createElement('p')
@@ -22,26 +22,24 @@ window.addEventListener('DOMContentLoaded', () => {
   function winOrLose(gameEnding) {
     if (gameEnding === 'lose') {
       gameEndText.innerHTML = 'GAME OVER'
-      declareWinner.appendChild(gameEndText)
-      declareWinner.appendChild(playAgainText)
-      declareWinner.style.border = '10px solid black'
-      // gameEndText.classList.add('animated', 'rubberBand')
-      document.removeEventListener('keyup', keyUpEvent)
       frog.classList.remove('frog')
     } else {
       gameEndText.innerHTML = 'YOU WON!!'
-      declareWinner.appendChild(gameEndText)
-      declareWinner.appendChild(playAgainText)
-      declareWinner.style.border = '10px solid black'
-      // gameEndText.classList.add('animated', 'rubberBand')
-      document.removeEventListener('keyup', keyUpEvent)
     }
+    declareWinner.appendChild(gameEndText)
+    declareWinner.appendChild(playAgainText)
+    declareWinner.style.border = '10px solid black'
+    // gameEndText.classList.add('animated', 'rubberBand')
+    document.removeEventListener('keyup', keyUpEvent)
+    clearInterval(gameTimer)
+    clearTimeout(clearTimer)
   }
 
 
   // KeyUp event function, frog move instructions and collision detection
   const keyUpEvent = e => {
 
+    // Ensuring frog moves with log
     const parent = frog.parentElement
     parent.removeChild(frog)
     let newFrogPosition = 0
@@ -51,6 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
       newFrogPosition = cells.indexOf(parent)
     }
 
+    // Frog keyboard controls
     const x = newFrogPosition % width
     const y = Math.floor(newFrogPosition / width)
 
@@ -65,6 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
         break
     }
 
+    // Collision detection based on cell frog is moving into
     const newPositionChildren = cells[newFrogPosition].children
     if (newPositionChildren.length === 0) {
       cells[newFrogPosition].appendChild(frog)
@@ -100,6 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Frog controls logic
 
   document.addEventListener('keyup', keyUpEvent)
+
 
   // Logic to create grid
   function handleClick(e) {
@@ -241,7 +242,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const timeRemaining = document.querySelector('.timer')
     let countdown = 15
 
-    const gameTimer = setInterval(() => {
+    gameTimer = setInterval(() => {
       countdown--
       timer.innerHTML = countdown
       if (countdown === 0) {
@@ -249,7 +250,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }, 1000)
 
-    const clearTimer = setTimeout(() => {
+    clearTimer = setTimeout(() => {
       clearInterval(gameTimer)
       const gameEnding = 'lose'
       winOrLose(gameEnding)
@@ -334,7 +335,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     }, 400)
 
-    
-
   })
+
 })
