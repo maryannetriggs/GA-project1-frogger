@@ -151,7 +151,7 @@ body {
 }
 
 .river1, .river2 {
-  background-color: skyblue;
+  background-image: url(../images/river.jpeg);
   background-size: 300px;
   display: flex;
   align-items: center;
