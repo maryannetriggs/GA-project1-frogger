@@ -7,26 +7,49 @@ window.addEventListener('DOMContentLoaded', () => {
   // Setting board width and height
   const width = 10
 
+
   // Variables for creating grid
   const grid = document.querySelector('.grid')
   const cells = []
-  let gameTimer, clearTimer, slowItems, fastItems, gameEnding
 
+
+  // Logic to create grid
+  for (let i = 0; i < width ** 2; i++) {
+    const cell = document.createElement('div')
+    grid.appendChild(cell)
+    cells.push(cell)
+  }
 
   // Sound FX variables
   const soundtrack = new Audio('./audio/dp_frogger.mp3')
   const gameOverSound = new Audio('./audio/sound-frogger-time.wav')
+  const youWonSound = new Audio('./audio/sound-frogger-extra.wav')
   const froggerHopSound = new Audio('./audio/sound-frogger-hop.wav')
   froggerHopSound.playbackRate = 3
-  const youWonSound = new Audio('./audio/sound-frogger-extra.wav')
 
-  // Win/lose function
 
+  // Declaring game variables for use inside click event handler
+  let gameTimer, clearTimer, slowItems, fastItems, gameEnding
+  
+
+  // Creation and positioning of frog and lilypad
+  const frog = document.createElement('div')
+  const lily = document.createElement('div')
+
+  cells[cells.length - 1].appendChild(frog)
+  frog.classList.add('frog')
+  cells[0].appendChild(lily)
+  lily.classList.add('lily')
+
+
+  // Game ended banner logic
   const gameEndText = document.createElement('h2')
   const playAgainText = document.createElement('p')
   playAgainText.innerHTML = 'press the reset button to play again'
   const declareWinner = document.querySelector('.gameEndText')
 
+
+  // Win/lose function
   function winOrLose(gameEnding) {
     if (gameEnding === 'lose') {
       gameEndText.innerHTML = 'GAME OVER'
@@ -54,15 +77,18 @@ window.addEventListener('DOMContentLoaded', () => {
     // Frogger hop noise
     froggerHopSound.play()
 
+
     // Ensuring frog moves with log
     const parent = frog.parentElement
     let newFrogPosition = 0
+
     parent.removeChild(frog)
     if (parent.classList.contains('log')) {
       newFrogPosition = cells.indexOf(parent.parentElement)
     } else {
       newFrogPosition = cells.indexOf(parent)
     }
+
 
     // Frog keyboard controls
     const x = newFrogPosition % width
@@ -79,32 +105,33 @@ window.addEventListener('DOMContentLoaded', () => {
         break
     }
 
+
     // Collision detection based on cell frog is moving into
-    const newPositionChildren = cells[newFrogPosition].children
-    if (newPositionChildren.length === 0) {
-      cells[newFrogPosition].appendChild(frog)
-      if (cells[newFrogPosition].classList.contains('river1') || cells[newFrogPosition].classList.contains('river2')) {
+    const newPositionChildren = cells[newFrogPosition].children // Children of the cell frog is about to jump into
+    if (newPositionChildren.length === 0) { // if there are no children frog is either jumping onto a safespace or a river
+      cells[newFrogPosition].appendChild(frog) // move frog into new cell
+      if (cells[newFrogPosition].classList.contains('river1') || cells[newFrogPosition].classList.contains('river2')) { // if frog jumps into either river
         // GAME OVER - frog drowns in river
         gameEnding = 'lose'
         winOrLose(gameEnding)
-      } else {
+      } else { // frog is in a safe space or road and game continues
         frog.classList.add('animated', 'pulse')
         // GAME CONTINUES - frog is still safe
       }
-    } else {
-      const child = newPositionChildren[0]
-      if (child.classList.contains('car') || child.classList.contains('car2')) {
-        cells[newFrogPosition].appendChild(frog)
+    } else { // if there are children in the cell frog is jumping into
+      const child = newPositionChildren[0] // getting the first child of new cell
+      if (child.classList.contains('car') || child.classList.contains('car2')) { // if first child is a car
+        cells[newFrogPosition].appendChild(frog) // move frog and game ends
         // GAME OVER - frog has moved into path of car
         gameEnding = 'lose'
         winOrLose(gameEnding)
-      } else {
+      } else { // move frog onto lilypad and you win!
         child.appendChild(frog)
         if (child.classList.contains('lily')) {
           // YOU WIN - frog has reached lilypad
           gameEnding = 'win'
           winOrLose(gameEnding)
-        } else {
+        } else { // frog has landed on a log and game continues
           frog.classList.add('animated', 'pulse')
           // GAME CONTINUES - frog is still safe
         }
@@ -112,105 +139,69 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Frog controls logic
 
+  // Frog controls logic
   document.addEventListener('keyup', keyUpEvent)
 
 
-  // Logic to create grid
-  function handleClick(e) {
-    e.target.classList.add('frog')
-  }
-
-  for (let i = 0; i < width ** 2; i++) {
-    const cell = document.createElement('div')
-    cell.addEventListener('dblclick', handleClick)
-    grid.appendChild(cell)
-    cells.push(cell)
-  }
-
-
-  // Creating river 1 array
+  // Creation of river arrays
   const river1 = cells.slice(20, 30)
   river1.forEach(element => {
     element.classList.add('river1')
   })
-
-  // Creating river 2 array
   const river2 = cells.slice(30, 40)
   river2.forEach(element => {
     element.classList.add('river2')
   })
 
-  // Creating road 1 array
+
+  // Creation of road arrays
   const road1 = cells.slice(50, 60)
   road1.forEach(element => {
     element.classList.add('road')
   })
-
-  // Creating road 2 array
   const road2 = cells.slice(60, 70)
   road2.forEach(element => {
     element.classList.add('road')
   })
-
-  // Creating road 3 array
   const road3 = cells.slice(70, 80)
   road3.forEach(element => {
     element.classList.add('road')
   })
 
-  // Creating safe space 1
+
+  // Creation of safe space arrays
   const safeSpace1 = cells.slice(0, 20)
   safeSpace1.forEach(element => {
     element.classList.add('safespace')
   })
-
-  // Creating safe space 2
   const safeSpace2 = cells.slice(40, 50)
   safeSpace2.forEach(element => {
     element.classList.add('safespace')
   })
-
-  // Creating safe space 3
   const safeSpace3 = cells.slice(80, 100)
   safeSpace3.forEach(element => {
     element.classList.add('safespace')
   })
 
-  // Variables for frog and lilypad
-  const frog = document.createElement('div')
-  cells[cells.length - 1].appendChild(frog)
-  frog.classList.add('frog')
 
-  const lily = document.createElement('div')
-  cells[0].appendChild(lily)
-  lily.classList.add('lily')
-  
-
-  // Slow cars
+  // Creation and positioning of slow cars
   const slowCar1 = document.createElement('div')
   road3[0].appendChild(slowCar1)
   const slowCar2 = document.createElement('div')
   road3[3].appendChild(slowCar2)
   const slowCar3 = document.createElement('div')
   road3[6].appendChild(slowCar3)
-  const slowCars = [slowCar1, slowCar2, slowCar3]
-  slowCars.forEach(element => {
-    element.classList.add('car')
-  })
 
-  // Fast cars
+
+  // Creation and positioning of fast cars
   const fastCar1 = document.createElement('div')
   road1[9].appendChild(fastCar1)
   const fastCar2 = document.createElement('div')
   road1[4].appendChild(fastCar2)
-  const fastCars = [fastCar1, fastCar2]
-  fastCars.forEach(element => {
-    element.classList.add('car2')
-  })
 
-  // Slow logs
+
+  // Creation and positioning of slow logs
   const slowLog1of2 = document.createElement('div')
   river2[0].appendChild(slowLog1of2)
   const slowLog2of2 = document.createElement('div')
@@ -219,12 +210,9 @@ window.addEventListener('DOMContentLoaded', () => {
   river2[6].appendChild(slowLog1of22)
   const slowLog2of22 = document.createElement('div')
   river2[7].appendChild(slowLog2of22)
-  const slowLogs = [slowLog1of2, slowLog2of2, slowLog1of22, slowLog2of22]
-  slowLogs.forEach(element => {
-    element.classList.add('log')
-  })
 
-  // Fast logs
+
+  // Creation and positioning of fast logs
   const fastLog1of2 = document.createElement('div')
   river1[8].appendChild(fastLog1of2)
   const fastLog2of2 = document.createElement('div')
@@ -233,7 +221,23 @@ window.addEventListener('DOMContentLoaded', () => {
   river1[3].appendChild(fastLog1of22)
   const fastLog2of22 = document.createElement('div')
   river1[4].appendChild(fastLog2of22)
+
+
+  // Car and log array creation and addition of classes
+  const slowCars = [slowCar1, slowCar2, slowCar3]
+  const fastCars = [fastCar1, fastCar2]
+  const slowLogs = [slowLog1of2, slowLog2of2, slowLog1of22, slowLog2of22]
   const fastLogs = [fastLog1of2, fastLog2of2, fastLog1of22, fastLog2of22]
+
+  slowCars.forEach(element => {
+    element.classList.add('car')
+  })
+  fastCars.forEach(element => {
+    element.classList.add('car2')
+  })
+  slowLogs.forEach(element => {
+    element.classList.add('log')
+  })
   fastLogs.forEach(element => {
     element.classList.add('log')
   })
@@ -241,16 +245,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Buttons
 
-  // Reset
+  // Reset button action
   const resetButton = document.querySelector('.reset')
   resetButton.addEventListener(('click'), () => {
     location.reload()
   })
 
 
-  // Start
+  // Start button actions
   const startGame = document.querySelector('.start')
   startGame.addEventListener(('click'), () => {
+
 
     // Game timer
     const timer = document.querySelector('#timer')
@@ -265,6 +270,8 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }, 1000)
 
+
+    // Timer action if player runs out of time
     clearTimer = setTimeout(() => {
       clearInterval(gameTimer)
       // GAME OVER - ran out of time
@@ -273,24 +280,27 @@ window.addEventListener('DOMContentLoaded', () => {
       
     }, 15000)
 
-    // Playing soundtrack
+
+    // Playing soundtrack on loop when start button clicked
     soundtrack.loop = true
     soundtrack.play()
 
-    // Slow items
+
+    // Logic for movement of slow items and their collision with frog
 
     // Slow cars
     slowItems = setInterval(() => {
 
       slowCars.forEach(car => {
-        const roadPosition = road3.indexOf(car.parentElement)
+        const roadPosition = road3.indexOf(car.parentElement) // move -> 
+
         road3[roadPosition].removeChild(car)
-        if (roadPosition === road3.length - 1) {
+        if (roadPosition === road3.length - 1) { 
           road3[0].appendChild(car)
         } else {
           road3[roadPosition + 1].appendChild(car)
         }
-        if (car.parentElement.childElementCount > 1) {
+        if (car.parentElement.childElementCount > 1) { // if there is more than one child element in the cell the car has moved into there must have been a collision with a frog and game over
           // GAME OVER - frog run over by car
           gameEnding = 'lose'
           winOrLose(gameEnding)
@@ -299,11 +309,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // Slow logs
       slowLogs.forEach(log => {
-        const riverPosition = river2.indexOf(log.parentElement)
+        const riverPosition = river2.indexOf(log.parentElement) // move ->
+
         river2[riverPosition].removeChild(log)
         if (riverPosition === river2.length - 1) {
           river2[0].appendChild(log)
-          if (log.childElementCount === 1) {
+          if (log.childElementCount === 1) { // if the log has reached the edge of the board and there is a child element within it, the frog has gone overboard and game over
             // GAME OVER - frog washed away down the river
             frog.parentElement.removeChild(frog)
             gameEnding = 'lose'
@@ -316,13 +327,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
     }, 1000)
 
-    // Fast items
+
+    // Logic for movement of fast items and their collision with frog
 
     // Fast cars
     fastItems = setInterval(() => {
 
       fastCars.forEach(car => {
-        const roadPosition = road1.indexOf(car.parentElement)
+        const roadPosition = road1.indexOf(car.parentElement) // move <-
+
         road1[roadPosition].removeChild(car)
         if (roadPosition === 0) {
           road1[9].appendChild(car)
@@ -338,7 +351,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // Fast logs
       fastLogs.forEach(log => {
-        const riverPosition = river1.indexOf(log.parentElement)
+        const riverPosition = river1.indexOf(log.parentElement) // move <-
+
         river1[riverPosition].removeChild(log)
         if (riverPosition === 0) {
           river1[9].appendChild(log)
