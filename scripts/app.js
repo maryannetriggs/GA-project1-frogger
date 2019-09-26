@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Variables for creating grid
   const grid = document.querySelector('.grid')
   const cells = []
-  let gameTimer, clearTimer, slowItems, fastItems
+  let gameTimer, clearTimer, slowItems, fastItems, gameEnding
 
   // Win/lose function
 
@@ -43,8 +43,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Ensuring frog moves with log
     const parent = frog.parentElement
-    parent.removeChild(frog)
     let newFrogPosition = 0
+    parent.removeChild(frog)
     if (parent.classList.contains('log')) {
       newFrogPosition = cells.indexOf(parent.parentElement)
     } else {
@@ -71,29 +71,29 @@ window.addEventListener('DOMContentLoaded', () => {
     if (newPositionChildren.length === 0) {
       cells[newFrogPosition].appendChild(frog)
       if (cells[newFrogPosition].classList.contains('river1') || cells[newFrogPosition].classList.contains('river2')) {
-        console.log('drown in river') // GAME OVER
-        const gameEnding = 'lose'
+        // GAME OVER - frog drowns in river
+        gameEnding = 'lose'
         winOrLose(gameEnding)
       } else {
         frog.classList.add('animated', 'pulse')
-        console.log('live') // GAME CONTINUES
+        // GAME CONTINUES - frog is still safe
       }
     } else {
       const child = newPositionChildren[0]
       if (child.classList.contains('car') || child.classList.contains('car2')) {
         cells[newFrogPosition].appendChild(frog)
-        console.log('die in horiffic car accident')
-        const gameEnding = 'lose'
+        // GAME OVER - frog has moved into path of car
+        gameEnding = 'lose'
         winOrLose(gameEnding)
       } else {
         child.appendChild(frog)
         if (child.classList.contains('lily')) {
-          console.log('you win!!!!') // YOU WIN
-          const gameEnding = 'win'
+          // YOU WIN - frog has reached lilypad
+          gameEnding = 'win'
           winOrLose(gameEnding)
         } else {
           frog.classList.add('animated', 'pulse')
-          console.log('live') // GAME CONTINUES
+          // GAME CONTINUES - frog is still safe
         }
       }
     }
@@ -254,7 +254,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     clearTimer = setTimeout(() => {
       clearInterval(gameTimer)
-      const gameEnding = 'lose'
+      // GAME OVER - ran out of time
+      gameEnding = 'lose'
       winOrLose(gameEnding)
     }, 15000)
 
@@ -273,8 +274,8 @@ window.addEventListener('DOMContentLoaded', () => {
           road3[roadPosition + 1].appendChild(car)
         }
         if (car.parentElement.childElementCount > 1) {
-          console.log('die in horiffic car accident') // GAME OVER
-          const gameEnding = 'lose'
+          // GAME OVER - frog run over by car
+          gameEnding = 'lose'
           winOrLose(gameEnding)
         }
       })
@@ -286,9 +287,9 @@ window.addEventListener('DOMContentLoaded', () => {
         if (riverPosition === river2.length - 1) {
           river2[0].appendChild(log)
           if (log.childElementCount === 1) {
-            console.log('frog lost downstream') // GAME OVER
+            // GAME OVER - frog washed away down the river
             frog.parentElement.removeChild(frog)
-            const gameEnding = 'lose'
+            gameEnding = 'lose'
             winOrLose(gameEnding)
           }
         } else {
@@ -312,8 +313,8 @@ window.addEventListener('DOMContentLoaded', () => {
           road1[roadPosition - 1].appendChild(car)
         }
         if (car.parentElement.childElementCount > 1) {
-          console.log('die in horiffic car accident') // GAME OVER
-          const gameEnding = 'lose'
+          // GAME OVER - frog run over by car
+          gameEnding = 'lose'
           winOrLose(gameEnding)
         }
       })
@@ -325,9 +326,9 @@ window.addEventListener('DOMContentLoaded', () => {
         if (riverPosition === 0) {
           river1[9].appendChild(log)
           if (log.childElementCount === 1) {
-            console.log('frog lost downstream') // GAME OVER
+            // GAME OVER - frog washed away down the river
             frog.parentElement.removeChild(frog)
-            const gameEnding = 'lose'
+            gameEnding = 'lose'
             winOrLose(gameEnding)
           }
         } else {
