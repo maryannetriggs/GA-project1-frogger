@@ -99,9 +99,21 @@ div.start {
   border: forestgreen 4px solid;
 }
 
+div.start:active {
+  animation: startButtonGradient 100ms;
+  background:forestgreen;
+  color:white;
+}
+
 div.reset {
   background-color: palegreen;
   border: palegreen 4px solid;
+}
+
+div.reset:active {
+  animation: resetButtonGradient 100ms;
+  background:palegreen;
+  color: white;
 }
 
 
@@ -142,8 +154,7 @@ div.reset {
 .road {
   background-color: gainsboro;
   background-size: 300px;
-  border-top: white 1px dashed;
-  border-bottom: white 1px dashed;
+  border-bottom: white 2px dashed;
 }
 
 .river1 {
@@ -151,6 +162,7 @@ div.reset {
   background-size: 300px;
   display: flex;
   align-items: center;
+  /* border-bottom: white 1px dashed; */
 }
 
 .river2 {
@@ -195,4 +207,42 @@ div.gameEndText h2 {
 div.gameEndText p {
   font-size: 30px;
   padding: 0 20px;
+}
+
+@keyframes startButtonGradient {
+  0% {
+    background: radial-gradient(circle at center, forestgreen 0%, white 0%, white 100%);
+  }
+  25% {
+    background: radial-gradient(circle at center, forestgreen 24%, white 25%, white 100%);
+  }
+  50% {
+    background: radial-gradient(circle at center, forestgreen 49%, white 50%, white 100%);
+  }
+  75% {
+    background: radial-gradient(circle at center, forestgreen 74%, white 75%, white 100%);
+  }
+  100% {
+    color: white;
+    background: radial-gradient(circle at center, forestgreen, 99%, white 100%, white 100%);
+  }
+}
+
+@keyframes resetButtonGradient {
+  0% {
+    background: radial-gradient(circle at center, palegreen 0%, white 0%, white 100%);
+  }
+  25% {
+    background: radial-gradient(circle at center, palegreen 24%, white 25%, white 100%);
+  }
+  50% {
+    background: radial-gradient(circle at center, palegreen 49%, white 50%, white 100%);
+  }
+  75% {
+    background: radial-gradient(circle at center, palegreen 74%, white 75%, white 100%);
+  }
+  100% {
+    color: white;
+    background: radial-gradient(circle at center, palegreen, 99%, white 100%, white 100%);
+  }
 }

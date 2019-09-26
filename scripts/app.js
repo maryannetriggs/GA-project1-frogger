@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Variables for creating grid
   const grid = document.querySelector('.grid')
   const cells = []
-  let gameTimer, clearTimer
+  let gameTimer, clearTimer, slowItems, fastItems
 
   // Win/lose function
 
@@ -33,6 +33,8 @@ window.addEventListener('DOMContentLoaded', () => {
     document.removeEventListener('keyup', keyUpEvent)
     clearInterval(gameTimer)
     clearTimeout(clearTimer)
+    clearInterval(slowItems)
+    clearInterval(fastItems)
   }
 
 
@@ -260,7 +262,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Slow items
 
     // Slow cars
-    setInterval(() => {
+    slowItems = setInterval(() => {
 
       slowCars.forEach(car => {
         const roadPosition = road3.indexOf(car.parentElement)
@@ -299,7 +301,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Fast items
 
     // Fast cars
-    setInterval(() => {
+    fastItems = setInterval(() => {
 
       fastCars.forEach(car => {
         const roadPosition = road1.indexOf(car.parentElement)
