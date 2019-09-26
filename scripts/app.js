@@ -12,6 +12,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const cells = []
   let gameTimer, clearTimer, slowItems, fastItems, gameEnding
 
+
+  // Sound FX variables
+  const soundtrack = new Audio('./audio/dp_frogger.mp3')
+  const gameOverSound = new Audio('./audio/sound-frogger-time.wav')
+  const froggerHopSound = new Audio('./audio/sound-frogger-hop.wav')
+  const youWonSound = new Audio('./audio/sound-frogger-extra.wav')
+
   // Win/lose function
 
   const gameEndText = document.createElement('h2')
@@ -23,23 +30,28 @@ window.addEventListener('DOMContentLoaded', () => {
     if (gameEnding === 'lose') {
       gameEndText.innerHTML = 'GAME OVER'
       frog.classList.remove('frog')
+      gameOverSound.play()
     } else {
       gameEndText.innerHTML = 'YOU WON!!'
+      youWonSound.play()
     }
     declareWinner.appendChild(gameEndText)
     declareWinner.appendChild(playAgainText)
     declareWinner.style.border = '10px solid black'
-    // gameEndText.classList.add('animated', 'rubberBand')
     document.removeEventListener('keyup', keyUpEvent)
     clearInterval(gameTimer)
     clearTimeout(clearTimer)
     clearInterval(slowItems)
     clearInterval(fastItems)
+    soundtrack.pause()
   }
 
 
   // KeyUp event function, frog move instructions and collision detection
   const keyUpEvent = e => {
+
+    // Frogger hop noise
+    froggerHopSound.play()
 
     // Ensuring frog moves with log
     const parent = frog.parentElement
@@ -257,8 +269,12 @@ window.addEventListener('DOMContentLoaded', () => {
       // GAME OVER - ran out of time
       gameEnding = 'lose'
       winOrLose(gameEnding)
+      
     }, 15000)
 
+    // Playing soundtrack
+    soundtrack.loop = true
+    soundtrack.play()
 
     // Slow items
 
