@@ -17,6 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const soundtrack = new Audio('./audio/dp_frogger.mp3')
   const gameOverSound = new Audio('./audio/sound-frogger-time.wav')
   const froggerHopSound = new Audio('./audio/sound-frogger-hop.wav')
+  froggerHopSound.playbackRate = 3
   const youWonSound = new Audio('./audio/sound-frogger-extra.wav')
 
   // Win/lose function
