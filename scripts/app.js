@@ -125,9 +125,9 @@ window.addEventListener('DOMContentLoaded', () => {
         // GAME OVER - frog has moved into path of car
         gameEnding = 'lose'
         winOrLose(gameEnding)
-      } else { // move frog onto lilypad and you win!
-        child.appendChild(frog)
-        if (child.classList.contains('lily')) {
+      } else { // frog has landed on either lilypad or log
+        child.appendChild(frog) // move frog into new cell
+        if (child.classList.contains('lily')) { // frog has landed on lilypad
           // YOU WIN - frog has reached lilypad
           gameEnding = 'win'
           winOrLose(gameEnding)
@@ -260,7 +260,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Game timer
     const timer = document.querySelector('#timer')
     const timeRemaining = document.querySelector('.timer')
-    let countdown = 15
+    let countdown = 12
 
     gameTimer = setInterval(() => {
       countdown--
@@ -278,7 +278,7 @@ window.addEventListener('DOMContentLoaded', () => {
       gameEnding = 'lose'
       winOrLose(gameEnding)
       
-    }, 15000)
+    }, 12000)
 
 
     // Playing soundtrack on loop when start button clicked
