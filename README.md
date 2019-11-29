@@ -22,7 +22,7 @@ Based on the classic arcade game Frogger this is a browser game buit with JavaSc
 
 ## Deployment
 
-This game is deployed on [GitHub Pages](https://maryannetriggs.github.io/project-01/)
+This game is deployed on [GitHub Pages](https://maryannetriggs.github.io/GA-project1-frogger/)
 
 ![readme-one](images/readme/overview.png)
 
@@ -110,13 +110,16 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
 ```
 
 
-**Secondly** in the setInterval timers controlling the movement of the car and log game obstacles to determine if cell the obstacles were moving into would create a win/lose condition.
+**Secondly** in the setInterval timers controlling the movement of the car and log obstacles to determine if cell the obstacles were moving into would create a win/lose condition.
 
-1. If there weren't any child elements this meant the game obstacle was moving into a Frogger free cell and the game continues.
-- If there was a child element the obstacle was moving into the same cell as Frogger and the game is over.
+1. Car - If there weren't any child elements this meant the car was moving into a Frogger free cell and the game continues.
+- If there was a child element the car was moving into the same cell as Frogger and the game is over.
+
+2. Log - If there weren't any child elements this meant the car was moving into a Frogger free cell and the game continues.
+- If there was a child element the car was moving into the same cell as Frogger and the game is over.
 
 ```js
-// Logic for movement of slow obstacles and their collision with Frogger
+// Logic for movement of slow cars and their collision with Frogger
 
     slowItems = setInterval(() => {
 
@@ -138,10 +141,30 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
 
     }, 1000)
 ```
+```js
+// Logic for movement of slow cars and their collision with Frogger
 
+      slowLogs.forEach(log => {
+        const riverPosition = river2.indexOf(log.parentElement) // move ->
+
+        river2[riverPosition].removeChild(log)
+        if (riverPosition === river2.length - 1) {
+          river2[0].appendChild(log)
+          if (log.childElementCount === 1) { // if the log has reached the edge of the board and there is a child element within it, the frog has gone overboard and game over
+            // GAME OVER - frog washed away down the river
+            frog.parentElement.removeChild(frog)
+            gameEnding = 'lose'
+            winOrLose(gameEnding)
+          }
+        } else {
+          river2[riverPosition + 1].appendChild(log)
+        }
+      })
+
+    }, 1000)
+```
 
 ![readme-three](images/readme/gameplay.gif)
-
 
 ---
 
