@@ -22,7 +22,7 @@ Based on the classic arcade game Frogger this is a browser game buit with JavaSc
 
 ## Deployment
 
-This game is deployed on GitHub Pages and can be found here: https://maryannetriggs.github.io/project-01/
+This game is deployed on [GitHub Pages](https://maryannetriggs.github.io/project-01/)
 
 ![readme-one](images/readme/overview.png)
 
@@ -51,6 +51,7 @@ Frogger must be directed using the keyboard arrow keys across the road, avoiding
 
 Once a win/lose condition has been met, the reset button may be pressed to play again.
 
+
 ![readme-two](images/readme/game-board.png)
 
 ---
@@ -73,6 +74,7 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
   - If the child element had a class of car, Frogger dies and game over.
   - If the child element had a class of lily, Frogger wins and game over.
   - If the child element has any other class, Frogger has landed on a log and the game continues.
+
 
 ```js
     const newPositionChildren = cells[newFrogPosition].children
@@ -107,6 +109,7 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
     }
 ```
 
+
 **Secondly** in the setInterval timers controlling the movement of the car and log game obstacles to determine if cell the obstacles were moving into would create a win/lose condition.
 
 1. If there weren't any child elements this meant the game obstacle was moving into a Frogger free cell and the game continues.
@@ -136,7 +139,9 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
     }, 1000)
 ```
 
-![readme-three](images/readme/gameplay.mov)
+
+![readme-three](images/readme/gameplay.gif)
+
 
 ---
 
@@ -155,8 +160,6 @@ Advancements that could be made in the future to improve this game include:
 - Multiple frogs and lilypads
 - Inclusion of a high score board
 
-## Author
-
-Mary-Anne Triggs
+## Author - Mary-Anne Triggs
 
 Please visit my personal [portfolio](www.maryannetriggs.com)
