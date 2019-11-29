@@ -1,36 +1,42 @@
 ![ga_cog_large_red_rgb](https://cloud.githubusercontent.com/assets/40461/8183776/469f976e-1432-11e5-8199-6ac91363302b.png)
 
-# Frogger
+# GA Project 1 - Frogger
 
-Based on the classic arcade game Frogger this is a browser game buit with JavaScript.
-This was the first project I completed during the General Assembly Software Engineering Immersive (bootcamp) course.
+Based on the classic arcade game Frogger this is a browser game buit with JavaScript, this was the first project I completed during the General Assembly Software Engineering Immersive (bootcamp) course.
 
 ## Resources
 
 * Frogger arcade game [Youtube](https://www.youtube.com/watch?v=l9fO-YuWPSk)
 * Frogger - [Wikipedia](https://en.wikipedia.org/wiki/Frogger)
 
----
-
 ## Built With
 
-1. HTML5
-2. CSS
-3. Javascript
+* HTML5 (including audio)
+* CSS
+* Javascript
+* Git / GitHub
+
+## Timeframe
+
+8 days
 
 ## Deployment
 
 This game is deployed on GitHub Pages and can be found here: https://maryannetriggs.github.io/project-01/
 
+![readme-one](images/readme/overview.png)
+
+---
+
 ## Getting Started
 
-Use the clone button to download the game source code. Open the index.html file in your browser and the game will start. The images used in this game are stored in the images folder and the audio files are stored in the audio folder.
+Use the clone button to download the game source code. Open the index.html file in your browser and the game will start. The images used in this game are stored in the 'images' folder and the audio files are stored in the 'audio' folder.
 
 ## To Play
 
-The goal in Frogger is to get the frog safely to the lily pad on the otherside of the game board. On her journey Frogger encounters numerous obstacles to be overcome, namely crossing a busy road and fast-flowing river. 
+The goal in Frogger is to get the frog safely to the lily pad on the other side of the game board. On her journey Frogger encounters numerous obstacles to overcome, namely crossing a busy road and fast-flowing river. 
 
-The game is started by clicking on the start button, upon which the timer is initiated giving the player 20 second to reach the lily pad.
+The game is started by clicking on the start button, upon which the timer is initiated giving the player 12 second to reach the lily pad.
 
 Frogger must be directed using the keyboard arrow keys across the road, avoiding the cars and then across the river, avoiding the strong currents by hopping from log to log. 
 
@@ -45,24 +51,28 @@ Frogger must be directed using the keyboard arrow keys across the road, avoiding
 
 Once a win/lose condition has been met, the reset button may be pressed to play again.
 
-![readme-one](images/readme/overview.png)
+![readme-two](images/readme/game-board.png)
+
+---
 
 ## Game Architecture
 
-The main challenge in writing the game logic was determining if one of the end conditions had been reached. This had to be evaluated in two locations. Firstly in the frog movement logic, to determine if the cell Frogger was moving into would create a win/lose condition. 
+The main challenge in writing the game logic was determining if one of the end conditions had been reached. This had to be evaluated in **two** locations. 
 
-First I created a variable to determine if the cell the frog was moving into had any child elements. 
+Note: Each element in the game (Frogger, cars, logs, lily pad) is a child element of the main grid (safespace, road, river).
 
-1. If there weren't any child elements this meant Frogger was either jumping into a safesapce or into the river.
+**Firstly** in the frog movement logic, to determine if the cell Frogger was moving into creates a win/lose condition. 
+
+1. If there weren't any other child elements this meant Frogger was either jumping into a safesapce or into the river.
 - So next I checked the class of parent element.
   - If the parent element had a river class, Frogger dies and game over.
   - If the parent element did not have a class of river Frogger had landed on either road or into a safe space and so Frogger lives and game continues.
 
-2. If there was a child element present this meant Frogger was jumping into either a car, a log or the lily pad.
+2. If there was another child element present this meant Frogger was jumping into a grid space with either a car, a log or the lily pad.
 - So then I checked the class of first child element in that cell.
   - If the child element had a class of car, Frogger dies and game over.
   - If the child element had a class of lily, Frogger wins and game over.
-  - If the child element has any other class, Frogger lives and game continues.
+  - If the child element has any other class, Frogger has landed on a log and the game continues.
 
 ```js
     const newPositionChildren = cells[newFrogPosition].children
@@ -97,7 +107,10 @@ First I created a variable to determine if the cell the frog was moving into had
     }
 ```
 
-Secondly in the setInterval timers controlling the movement of the game obstacles (cars and logs) to determine if cell the obstacles were moving into would create a win/lose condition.
+**Secondly** in the setInterval timers controlling the movement of the car and log game obstacles to determine if cell the obstacles were moving into would create a win/lose condition.
+
+1. If there weren't any child elements this meant the game obstacle was moving into a Frogger free cell and the game continues.
+- If there was a child element the obstacle was moving into the same cell as Frogger and the game is over.
 
 ```js
 // Logic for movement of slow obstacles and their collision with Frogger
@@ -123,10 +136,9 @@ Secondly in the setInterval timers controlling the movement of the game obstacle
     }, 1000)
 ```
 
-// if there is more than one child element in the cell the car has moved into there must have been a collision with a frog and game over
+![readme-three](images/readme/gameplay.mov)
 
-![readme-two](images/readme/game-board.png)
-
+---
 
 ## Future Improvements
 
@@ -147,4 +159,4 @@ Advancements that could be made in the future to improve this game include:
 
 Mary-Anne Triggs
 
-Link to my personal portfolio: www.maryannetriggs.com
+Please visit my personal [portfolio](www.maryannetriggs.com)
