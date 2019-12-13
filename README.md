@@ -56,7 +56,7 @@ Once a win/lose condition has been met, the reset button may be pressed to play 
 
 ---
 
-## Game Architecture
+## Game Architecture and Challenges
 
 The main challenge in writing the game logic was determining if one of the end conditions had been reached. This had to be evaluated in **two** locations. 
 
@@ -132,6 +132,7 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
     }, 1000)
 ```
 2. Log - regardless of whether Frogger is on the log, the log can move down the river until it reaches the limit of the game play area. When the log moves beyond the game play area, according to the rules of the game if Frogger is on the log, the game is over. As the code checks whether the log has reached the end of the river and to reset the log to the beginning of the river, it also checks for children of the log element (i.e. if Frogger is on the log). If Frogger is on the log, the game is over.
+
 ```js
 // Logic for movement of logs
       slowLogs.forEach(log => {
@@ -154,6 +155,26 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
 
 
 ![readme-three](images/readme/gameplay.gif)
+
+---
+
+## Wins
+
+The wins associated with this project were:
+
+* Writing the Frogger movement logic snippets above
+* Implementing the original game sound effects and integrating HTML5 Audio
+* Having a smoothly playable and fully functional Frogger game 
+
+---
+
+## Key Learning Points
+
+The key learning points associated with this project were:
+
+* Use of vanilla JavaScript to make a grid based game
+* Real-life applications of JavaScript array methods
+* Realising when I needed to ask for help
 
 ---
 
