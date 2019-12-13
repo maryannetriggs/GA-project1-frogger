@@ -2,7 +2,7 @@
 
 # GA Project 1 - Frogger
 
-Based on the classic arcade game Frogger this is a browser game buit with JavaScript, this was the first project I completed during the General Assembly Software Engineering Immersive (bootcamp) course.
+Based on the classic arcade game Frogger this is a browser game built with JavaScript, this was the first project I completed during the General Assembly Software Engineering Immersive (bootcamp) course.
 
 ## Resources
 
@@ -13,7 +13,7 @@ Based on the classic arcade game Frogger this is a browser game buit with JavaSc
 
 * HTML5 (including audio)
 * CSS
-* Javascript
+* JavaScript
 * Git / GitHub
 
 ## Timeframe
@@ -22,7 +22,7 @@ Based on the classic arcade game Frogger this is a browser game buit with JavaSc
 
 ## Deployment
 
-This game is deployed on [GitHub Pages](https://maryannetriggs.github.io/GA-project1-frogger/)
+This game is deployed on [GitHub Pages](https://maryannetriggs.github.io/GA-project1-frogger/) - Turn up your volume!
 
 ![readme-one](images/readme/overview.png)
 
@@ -111,21 +111,12 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
 
 
 **Secondly** in the setInterval timers controlling the movement of the car and log obstacles to determine if cell the obstacles were moving into would create a win/lose condition.
-
-1. Car - If there weren't any child elements this meant the car was moving into a Frogger free cell and the game continues.
-- If there was a child element the car was moving into the same cell as Frogger and the game is over.
-
-2. Log - If there weren't any child elements this meant the car was moving into a Frogger free cell and the game continues.
-- If there was a child element the car was moving into the same cell as Frogger and the game is over.
-
+1. Car - when the car moves into a new position the code checks if there are any other child elements in the new position. If there is a child element the car has moved into the same cell as Frogger and the game is over.
 ```js
 // Logic for movement of slow cars and their collision with Frogger
-
     slowItems = setInterval(() => {
-
       slowCars.forEach(car => {
         const roadPosition = road3.indexOf(car.parentElement) // direction of movement -> 
-
         road3[roadPosition].removeChild(car)
         if (roadPosition === road3.length - 1) { 
           road3[0].appendChild(car)
@@ -138,15 +129,13 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
           winOrLose(gameEnding)
         }
       })
-
     }, 1000)
 ```
+2. Log - regardless of whether Frogger is on the log, the log can move down the river until it reaches the limit of the game play area. When the log moves beyond the game play area, according to the rules of the game if Frogger is on the log, the game is over. As the code checks whether the log has reached the end of the river and to reset the log to the beginning of the river, it also checks for children of the log element (i.e. if Frogger is on the log). If Frogger is on the log, the game is over.
 ```js
-// Logic for movement of slow cars and their collision with Frogger
-
+// Logic for movement of logs
       slowLogs.forEach(log => {
         const riverPosition = river2.indexOf(log.parentElement) // move ->
-
         river2[riverPosition].removeChild(log)
         if (riverPosition === river2.length - 1) {
           river2[0].appendChild(log)
@@ -160,9 +149,9 @@ Note: Each element in the game (Frogger, cars, logs, lily pad) is a child elemen
           river2[riverPosition + 1].appendChild(log)
         }
       })
-
     }, 1000)
 ```
+
 
 ![readme-three](images/readme/gameplay.gif)
 
