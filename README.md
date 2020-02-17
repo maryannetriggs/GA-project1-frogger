@@ -36,7 +36,7 @@ Use the clone button to download the game source code. Open the index.html file 
 
 The goal in Frogger is to get the frog safely to the lily pad on the other side of the game board. On her journey Frogger encounters numerous obstacles to overcome, namely crossing a busy road and fast-flowing river. 
 
-The game is started by clicking on the start button, upon which the timer is initiated giving the player 12 second to reach the lily pad.
+The game is started by clicking on the start button, upon which the timer is initiated giving the player 12 seconds to reach the lily pad.
 
 Frogger must be directed using the keyboard arrow keys across the road, avoiding the cars and then across the river, avoiding the strong currents by hopping from log to log. 
 
@@ -60,7 +60,7 @@ Once a win/lose condition has been met, the reset button may be pressed to play 
 
 The main challenge in writing the game logic was determining if one of the end conditions had been reached. This had to be evaluated in **two** locations. 
 
-Note: Each element in the game (Frogger, cars, logs, lily pad) is a child element of the main grid (safespace, road, river).
+Note: Each element in the game (Frogger, cars, logs, lily pad) is a child element of the main grid spaces (safespace, road, river).
 
 **Firstly** in the frog movement logic, to determine if the cell Frogger was moving into creates a win/lose condition. 
 
