@@ -1,4 +1,4 @@
-//GitHub link -  https://maryannetriggs.github.io/project-01/
+//GitHub link -  https://maryannetriggs.github.io/GA-project1-frogger/
 
 // *************************************************FROGGER******************************************************
 
