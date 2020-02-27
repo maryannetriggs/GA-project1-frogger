@@ -195,4 +195,4 @@ Advancements that could be made in the future to improve this game include:
 
 ## Author - Mary-Anne Triggs
 
-Please visit my personal [portfolio](www.maryannetriggs.com)
+<!-- Please visit my personal [portfolio](www.maryannetriggs.com) -->
